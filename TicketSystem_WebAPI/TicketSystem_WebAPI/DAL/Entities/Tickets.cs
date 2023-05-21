@@ -16,6 +16,6 @@ namespace TicketSystem_WebAPI.DAL.Entities
         public bool IsUsed { get; set; }
 
         [Display(Name = "Entrance Gate")]
-        public string EntranceGate { get; set; }
+        public string? EntranceGate { get; set; }
     }
 }
