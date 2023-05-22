@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
+using System.Net.Sockets;
 using TicketSystem_WebAPI.DAL;
 using TicketSystem_WebAPI.DAL.Entities;
 
@@ -35,30 +37,46 @@ namespace TicketSystem_WebAPI.Controllers
 
             return Ok(tricket);
         }
-        // Editar si la boleta existe
+        //Editar si la boleta existe
         //Editar si la boleta no a sido usada
 
-        //[HttpPut, ActionName("Edit")]
-        //[Route("EditTickets/{TicketsId}")]
+        [HttpPut, ActionName("Put")]
+        [Route("Put/{Id]")]
+        public async Task<ActionResult> EditTicket(Guid? id, Tickets tickets)
+        {
+            try
+            {
+                if (tickets.Id == id)
+                {
+                    if (tickets.IsUsed == false)
+                    {
+                        try
+                        {
+                            tickets.UseDate = DateTime.Now;
+                            tickets.IsUsed = true;
+                            tickets.EntranceGate = "";
+                            _context.Tickets.Update(tickets);
+                            await _context.SaveChangesAsync();
+                        }
+                        catch (Exception e)
+                        {
+                            return Conflict(e.Message);
+                        }
 
-        //public async Task<ActionResult> EditTickets(Guid Id, Tickets tickets)
-        //{
-        //    try
-        //    {
-        //        if(Id != Tickets.Id) return NotFound("Ticket no exists");
-        //    }
-        //    catch(DbUpdateException dbUpdateException)
-        //    {
+                        return Ok(tickets);
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Conflict(ex.Message);
-        //    }
-        //    return Ok(tickets);
-        //}
+                    }
+                    return Conflict("La entrada ya se utilizo");
 
+                }
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return Conflict(ex.Message);
+            }
+        }
     }
-    }
+}
 
 

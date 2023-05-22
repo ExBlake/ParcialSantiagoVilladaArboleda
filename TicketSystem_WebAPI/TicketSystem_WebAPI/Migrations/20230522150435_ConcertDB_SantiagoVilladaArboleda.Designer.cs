@@ -12,7 +12,7 @@ using TicketSystem_WebAPI.DAL;
 namespace TicketSystem_WebAPI.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20230521215909_ConcertDB_SantiagoVilladaArboleda")]
+    [Migration("20230522150435_ConcertDB_SantiagoVilladaArboleda")]
     partial class ConcertDB_SantiagoVilladaArboleda
     {
         /// <inheritdoc />
@@ -32,7 +32,6 @@ namespace TicketSystem_WebAPI.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("EntranceGate")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsUsed")

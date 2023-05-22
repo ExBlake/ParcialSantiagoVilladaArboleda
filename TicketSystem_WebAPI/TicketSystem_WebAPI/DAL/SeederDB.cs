@@ -20,7 +20,7 @@
         {
             if (!_context.Tickets.Any())
             {
-                for(int i = 0; i <= 50000; i++)
+                for(int i = 0; i <= 15; i++)
                 {
                     _context.Tickets.Add(new Entities.Tickets { IsUsed = false });
                 }
