@@ -41,8 +41,8 @@ namespace TicketSystem_WebAPI.Controllers
         //Editar si la boleta no a sido usada
 
         [HttpPut, ActionName("Edit")]
-        [Route("Edit/{id}")]
-        public async Task<ActionResult<Tickets>> EditTicketById(Guid? id, String entranceGate)
+        [Route("EditTicket/{id}")]
+        public async Task<ActionResult<Tickets>> EditTicket(Guid? id, String entranceGate)
         {
             var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == id);
 

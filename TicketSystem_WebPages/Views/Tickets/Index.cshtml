@@ -1,13 +1,16 @@
-﻿@model IEnumerable<TicketSystem_WebAPI.DAL.Entities.Tickets>
+﻿
+@model IEnumerable<TicketSystem_WebAPI.DAL.Entities.Tickets>
 @{
     ViewData["Title"] = "Index";
 }
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" />
 
+    
 <p>
-    <center><a asp-action="Create" class="btn btn-outline-primary">Entrada al concierto</a></center>
+    <a asp-action="ValidarTicket" class="btn btn-outline-primary">Validar Boleto</a>
 </p>
+
 
 <div class="row">
     <div class="col-md-12">
@@ -50,9 +53,7 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.EntranceGate)
                                 </td>
-                                <td>
-                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info">Buscar Boleta</a>
-                                </td>
+                                
                             </tr>
                         }
                     </tbody>
