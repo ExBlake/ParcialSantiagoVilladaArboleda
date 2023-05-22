@@ -26,8 +26,8 @@ namespace TicketSystem_WebAPI.Controllers
         }
 
         [HttpGet, ActionName("Get")]
-        [Route("GeTicketsById/{TicketsId}")]
-        public async Task<ActionResult<Tickets>> xd(Guid? Id)
+        [Route("GeTicketsById/{Id}")]
+        public async Task<ActionResult<Tickets>> GetTicketsById(Guid? Id)
         {
             var tricket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == Id);
 
@@ -35,8 +35,30 @@ namespace TicketSystem_WebAPI.Controllers
 
             return Ok(tricket);
         }
+        // Editar si la boleta existe
+        //Editar si la boleta no a sido usada
 
-        
-        }
+        //[HttpPut, ActionName("Edit")]
+        //[Route("EditTickets/{TicketsId}")]
+
+        //public async Task<ActionResult> EditTickets(Guid Id, Tickets tickets)
+        //{
+        //    try
+        //    {
+        //        if(Id != Tickets.Id) return NotFound("Ticket no exists");
+        //    }
+        //    catch(DbUpdateException dbUpdateException)
+        //    {
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Conflict(ex.Message);
+        //    }
+        //    return Ok(tickets);
+        //}
+
     }
+    }
+
 
