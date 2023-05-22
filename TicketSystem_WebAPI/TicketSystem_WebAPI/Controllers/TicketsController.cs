@@ -40,41 +40,40 @@ namespace TicketSystem_WebAPI.Controllers
         //Editar si la boleta existe
         //Editar si la boleta no a sido usada
 
-        [HttpPut, ActionName("Put")]
-        [Route("Put/{Id]")]
-        public async Task<ActionResult> EditTicket(Guid? id, Tickets tickets)
+        [HttpPut, ActionName("Edit")]
+        [Route("Edit/{id}")]
+        public async Task<ActionResult<Tickets>> EditTicketById(Guid? id, String entranceGate)
         {
-            try
+            var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == id);
+
+            if (ticket.Id == id)
             {
-                if (tickets.Id == id)
+                if (ticket.IsUsed == false)
                 {
-                    if (tickets.IsUsed == false)
+                    try
                     {
-                        try
-                        {
-                            tickets.UseDate = DateTime.Now;
-                            tickets.IsUsed = true;
-                            tickets.EntranceGate = "";
-                            _context.Tickets.Update(tickets);
-                            await _context.SaveChangesAsync();
-                        }
-                        catch (Exception e)
-                        {
-                            return Conflict(e.Message);
-                        }
+                        ticket.UseDate = DateTime.Now;
+                        ticket.IsUsed = true;
+                        ticket.EntranceGate = entranceGate;
 
-                        return Ok(tickets);
-
+                        _context.Tickets.Update(ticket);
+                        await _context.SaveChangesAsync();
                     }
-                    return Conflict("La entrada ya se utilizo");
+                    catch (Exception e)
+                    {
+                        return Conflict(e.Message);
+                    }
+
+                    return Ok("Boleta válida, puede ingresar al concierto");
+                    
+                    
 
                 }
-                return NotFound();
+                return Conflict("Boleta ya usada");
+
             }
-            catch (Exception ex)
-            {
-                return Conflict(ex.Message);
-            }
+            return NotFound("Boleta no válida");
+
         }
     }
 }
